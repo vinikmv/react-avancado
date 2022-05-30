@@ -1,8 +1,8 @@
 import 'match-media-mock'
+import { screen } from '@testing-library/react'
+import { renderWithTheme } from 'utils/tests/helpers'
 
 import BannerSlider from '.'
-import { renderWithTheme } from 'utils/tests/helpers'
-import { screen } from '@testing-library/react'
 
 const items = [
   {
@@ -38,15 +38,10 @@ describe('<BannerSlider />', () => {
     expect(
       screen.getByRole('heading', { name: /defy death 1/i, hidden: false })
     ).toBeInTheDocument()
+
     expect(
       screen.getByRole('heading', { name: /defy death 2/i, hidden: true })
     ).toBeInTheDocument()
-  })
-
-  it('should render vertical slider', () => {
-    const { container } = renderWithTheme(<BannerSlider items={items} />)
-
-    expect(container.querySelector('.slick-vertical')).toBeInTheDocument()
   })
 
   it('should render with the dots', () => {

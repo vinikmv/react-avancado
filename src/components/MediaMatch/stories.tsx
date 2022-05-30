@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react'
+import { Story, Meta } from '@storybook/react/types-6-0'
 import MediaMatch from '.'
 
 export default {
@@ -15,6 +15,6 @@ export const Mobile: Story = () => (
 
 Mobile.parameters = {
   viewport: {
-    defaultViewPort: 'mobile1'
+    defaultViewport: 'mobile1'
   }
 }

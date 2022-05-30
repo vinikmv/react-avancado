@@ -1,9 +1,9 @@
-import { Story, Meta } from '@storybook/react'
+import { Story, Meta } from '@storybook/react/types-6-0'
 import GameInfo, { GameInfoProps } from '.'
 import mockGame from './mock'
 
 export default {
-  title: 'GameInfo',
+  title: 'Game/GameInfo',
   component: GameInfo,
   parameters: {
     backgrounds: {
@@ -14,7 +14,7 @@ export default {
 } as Meta
 
 export const Default: Story<GameInfoProps> = (args) => (
-  <div style={{ maxWidth: '144rem', padding: '1.5rem' }}>
+  <div style={{ maxWidth: '144rem', margin: 'auto', padding: '1.5rem' }}>
     <GameInfo {...args} />
   </div>
 )

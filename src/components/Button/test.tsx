@@ -31,12 +31,12 @@ describe('<Button />', () => {
 
     expect(screen.getByRole('button', { name: /Buy now/i })).toHaveStyle({
       height: '5rem',
-      padding: '0.8rem 4.8rem',
-      'font-size': '1.6rem'
+      'font-size': '1.6rem',
+      padding: '0.8rem 4.8rem'
     })
   })
 
-  it('should render the full width version', () => {
+  it('should render a fullWidth version', () => {
     renderWithTheme(<Button fullWidth>Buy now</Button>)
 
     expect(screen.getByRole('button', { name: /Buy now/i })).toHaveStyle({
@@ -53,20 +53,7 @@ describe('<Button />', () => {
     expect(screen.getByTestId('icon')).toBeInTheDocument()
   })
 
-  it('should render Button as a link', () => {
-    renderWithTheme(
-      <Button as="a" href="/link">
-        Buy now
-      </Button>
-    )
-
-    expect(screen.getByRole('link', { name: /buy now/i })).toHaveAttribute(
-      'href',
-      '/link'
-    )
-  })
-
-  it('should render an minimal version', () => {
+  it('should render a minimal version', () => {
     renderWithTheme(
       <Button icon={<AddShoppingCart data-testid="icon" />} minimal>
         Buy now
@@ -84,6 +71,19 @@ describe('<Button />', () => {
       {
         modifier: ':hover'
       }
+    )
+  })
+
+  it('should render Button as a link', () => {
+    renderWithTheme(
+      <Button as="a" href="/link">
+        Buy now
+      </Button>
+    )
+
+    expect(screen.getByRole('link', { name: /buy now/i })).toHaveAttribute(
+      'href',
+      '/link'
     )
   })
 })

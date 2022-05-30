@@ -1,12 +1,14 @@
-import { Divider } from 'components/Divider'
-import Gallery, { GalleryImageProps } from 'components/Gallery'
-import { GameCardProps } from 'components/GameCard'
-import GameDetails, { GameDetailsProps } from 'components/GameDetails'
-import GameInfo, { GameInfoProps } from 'components/GameInfo'
-import { HighlightProps } from 'components/Highlight'
-import Showcase from 'components/Showcase'
-import TextContent from 'components/TextContent'
 import Base from 'templates/Base'
+
+import GameInfo, { GameInfoProps } from 'components/GameInfo'
+import Gallery, { GalleryImageProps } from 'components/Gallery'
+import GameDetails, { GameDetailsProps } from 'components/GameDetails'
+import TextContent from 'components/TextContent'
+import Showcase from 'components/Showcase'
+import { Divider } from 'components/Divider'
+import { GameCardProps } from 'components/GameCard'
+import { HighlightProps } from 'components/Highlight'
+
 import * as S from './styles'
 
 export type GameTemplateProps = {
@@ -32,6 +34,7 @@ const Game = ({
 }: GameTemplateProps) => (
   <Base>
     <S.Cover src={cover} role="image" aria-label="cover" />
+
     <S.Main>
       <S.SectionGameInfo>
         <GameInfo {...gameInfo} />

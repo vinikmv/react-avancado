@@ -1,14 +1,10 @@
 import { ArrowBackIos as ArrowLeft } from '@styled-icons/material-outlined/ArrowBackIos'
 import { ArrowForwardIos as ArrowRight } from '@styled-icons/material-outlined/ArrowForwardIos'
 
-import GameCard, { GameCardProps } from 'components/GameCard'
 import Slider, { SliderSettings } from 'components/Slider'
-import * as S from './styles'
+import GameCard, { GameCardProps } from 'components/GameCard'
 
-export type GameCardSliderProps = {
-  items: GameCardProps[]
-  color?: 'white' | 'black'
-}
+import * as S from './styles'
 
 const settings: SliderSettings = {
   arrows: true,
@@ -47,6 +43,11 @@ const settings: SliderSettings = {
   ],
   nextArrow: <ArrowRight aria-label="next games" />,
   prevArrow: <ArrowLeft aria-label="previous games" />
+}
+
+export type GameCardSliderProps = {
+  items: GameCardProps[]
+  color?: 'white' | 'black'
 }
 
 const GameCardSlider = ({ items, color = 'white' }: GameCardSliderProps) => (

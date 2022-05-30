@@ -1,4 +1,5 @@
 import { Apple, Windows, Linux } from '@styled-icons/fa-brands'
+
 import Heading from 'components/Heading'
 import MediaMatch from 'components/MediaMatch'
 
@@ -20,8 +21,8 @@ export type GameDetailsProps = {
 const GameDetails = ({
   developer,
   publisher,
-  platforms,
   releaseDate,
+  platforms,
   rating,
   genres
 }: GameDetailsProps) => {
@@ -30,6 +31,7 @@ const GameDetails = ({
     mac: <Apple title="Mac" size={18} />,
     windows: <Windows title="Windows" size={18} />
   }
+
   return (
     <S.Wrapper>
       <MediaMatch greaterThan="small">
@@ -40,7 +42,7 @@ const GameDetails = ({
 
       <S.Content>
         <S.Block>
-          <S.Label>Developers</S.Label>
+          <S.Label>Developer</S.Label>
           <S.Description>{developer}</S.Description>
         </S.Block>
 

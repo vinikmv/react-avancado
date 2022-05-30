@@ -7,9 +7,10 @@ export type HeadingProps = {
   color?: 'white' | 'black'
   lineLeft?: boolean
   lineBottom?: boolean
-  size?: 'small' | 'medium' | 'huge'
   lineColor?: LineColors
+  size?: 'small' | 'medium' | 'huge'
 }
+
 const Heading = ({
   children,
   color = 'white',

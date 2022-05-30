@@ -14,17 +14,19 @@ const props = {
 
 describe('<Highlight />', () => {
   it('should render headings and button', () => {
-    renderWithTheme(<Highlight {...props} />)
+    const { container } = renderWithTheme(<Highlight {...props} />)
 
     expect(
-      screen.getByRole('heading', { name: /Heading 1/i })
+      screen.getByRole('heading', { name: /heading 1/i })
     ).toBeInTheDocument()
 
     expect(
-      screen.getByRole('heading', { name: /Heading 2/i })
+      screen.getByRole('heading', { name: /heading 2/i })
     ).toBeInTheDocument()
 
-    expect(screen.getByRole('link', { name: /Buy Now/i })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /buy now/i })).toBeInTheDocument()
+
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('should render background image', () => {
@@ -57,7 +59,7 @@ describe('<Highlight />', () => {
     })
   })
 
-  it('should render align left', () => {
+  it('should render align left by default', () => {
     const { container } = renderWithTheme(
       <Highlight {...props} alignment="left" />
     )

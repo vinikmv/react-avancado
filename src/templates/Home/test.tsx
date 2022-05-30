@@ -2,21 +2,21 @@ import 'match-media-mock'
 import { screen } from '@testing-library/react'
 import { renderWithTheme } from 'utils/tests/helpers'
 
-import bannersMock from 'components/BannerSlider/mock'
+import bannerMock from 'components/BannerSlider/mock'
 import gamesMock from 'components/GameCardSlider/mock'
 import highlightMock from 'components/Highlight/mock'
 
 import Home from '.'
 
 const props = {
-  banners: bannersMock,
-  newGames: [gamesMock[0]],
+  banners: bannerMock,
+  newGames: gamesMock,
   mostPopularHighlight: highlightMock,
-  mostPopularGames: [gamesMock[0]],
-  upcomingGames: [gamesMock[0]],
+  mostPopularGames: gamesMock,
+  upcomingGames: gamesMock,
   upcomingHighlight: highlightMock,
-  upcomingMoreGames: [gamesMock[0]],
-  freeGames: [gamesMock[0]],
+  upcomingMoreGames: gamesMock,
+  freeGames: gamesMock,
   freeHighlight: highlightMock
 }
 
@@ -42,8 +42,7 @@ describe('<Home />', () => {
   it('should render banner and showcases', () => {
     renderWithTheme(<Home {...props} />)
 
-    expect(screen.getByTestId(/mock banner slider/i)).toBeInTheDocument()
-
-    expect(screen.getAllByTestId(/mock showcase/i)).toHaveLength(5)
+    expect(screen.getByTestId('Mock Banner Slider')).toBeInTheDocument()
+    expect(screen.getAllByTestId('Mock Showcase')).toHaveLength(5)
   })
 })

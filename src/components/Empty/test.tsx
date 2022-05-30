@@ -9,7 +9,7 @@ const props = {
 }
 
 describe('<Empty />', () => {
-  it('should render the heading', () => {
+  it('should render correctly', () => {
     const { container } = renderWithTheme(<Empty {...props} hasLink />)
 
     expect(
@@ -19,9 +19,7 @@ describe('<Empty />', () => {
     ).toBeInTheDocument()
 
     expect(
-      screen.getByRole('heading', {
-        name: /a simple title/i
-      })
+      screen.getByRole('heading', { name: /a simple title/i })
     ).toBeInTheDocument()
 
     expect(screen.getByText(/a simple description/i)).toBeInTheDocument()
@@ -30,7 +28,7 @@ describe('<Empty />', () => {
       screen.getByRole('link', { name: /go back to store/i })
     ).toHaveAttribute('href', '/')
 
-    expect(container.parentElement).toMatchSnapshot
+    expect(container.parentElement).toMatchSnapshot()
   })
 
   it('should not render link when hasLink is not passed', () => {

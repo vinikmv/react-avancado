@@ -1,6 +1,6 @@
-import { HighlightProps } from 'components/Highlight'
 import styled, { css } from 'styled-components'
 import media from 'styled-media-query'
+import { HighlightProps } from '.'
 
 type WrapperProps = Pick<HighlightProps, 'backgroundImage' | 'alignment'>
 
@@ -20,6 +20,7 @@ const wrapperModifiers = {
     ${Content} {
       text-align: left;
     }
+
     ${FloatImage} {
       justify-self: end;
     }
@@ -73,7 +74,7 @@ export const Content = styled.div`
 
     ${media.greaterThan('medium')`
       align-self: end;
-      padding: ${theme.spacings.large}
+      padding: ${theme.spacings.large};
     `}
   `}
 `
@@ -85,7 +86,7 @@ export const Title = styled.h2`
     color: ${theme.colors.white};
 
     ${media.greaterThan('medium')`
-    font-size: ${theme.font.sizes.xxlarge};
+      font-size: ${theme.font.sizes.xxlarge};
     `}
   `}
 `
@@ -98,7 +99,7 @@ export const SubTitle = styled.h3`
     margin-bottom: ${theme.spacings.medium};
 
     ${media.greaterThan('medium')`
-    font-size: ${theme.font.sizes.large};
+      font-size: ${theme.font.sizes.large};
     `}
   `}
 `

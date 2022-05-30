@@ -22,10 +22,11 @@ const Auth = ({ title, children }: AuthProps) => (
         <div>
           <Heading size="huge">All your favorite games in one place</Heading>
           <S.Subtitle>
-            <strong>WON</strong> is the best and most complete gaming platform
+            <strong>WON</strong> is the best and most complete gaming platform.
           </S.Subtitle>
         </div>
-        <S.Footer>Won Games 2021. Todos os Direitos Reservados</S.Footer>
+
+        <S.Footer>Won Games 2020 © Todos os Direitos Reservados</S.Footer>
       </S.BannerContent>
     </S.BannerBlock>
 
@@ -36,8 +37,7 @@ const Auth = ({ title, children }: AuthProps) => (
             <Logo id="content" color="black" size="large" />
           </a>
         </Link>
-
-        <Heading color="black" lineLeft lineColor="secondary">
+        <Heading color="black" lineColor="secondary" lineLeft>
           {title}
         </Heading>
 

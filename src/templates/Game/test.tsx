@@ -20,6 +20,7 @@ const props: GameTemplateProps = {
   upcomingHighlight: highlightMock,
   recommendedGames: gamesMock
 }
+
 jest.mock('components/Menu', () => ({
   __esModule: true,
   default: function Mock() {

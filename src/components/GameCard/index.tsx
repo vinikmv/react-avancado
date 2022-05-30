@@ -1,12 +1,11 @@
-/* eslint-disable @next/next/no-img-element */
 import {
   AddShoppingCart,
   Favorite,
   FavoriteBorder
 } from '@styled-icons/material-outlined'
 
-import Button from 'components/Button'
 import Ribbon, { RibbonColors, RibbonSizes } from 'components/Ribbon'
+import Button from 'components/Button'
 import * as S from './styles'
 
 export type GameCardProps = {
@@ -28,10 +27,10 @@ const GameCard = ({
   img,
   price,
   promotionalPrice,
+  favorite = false,
   ribbon,
   ribbonColor = 'primary',
   ribbonSize = 'small',
-  favorite = false,
   onFav
 }: GameCardProps) => (
   <S.Wrapper>
@@ -50,7 +49,7 @@ const GameCard = ({
       </S.Info>
       <S.FavButton onClick={onFav} role="button">
         {favorite ? (
-          <Favorite aria-label="Remove from wishlist" />
+          <Favorite aria-label="Remove from Wishlist" />
         ) : (
           <FavoriteBorder aria-label="Add to Wishlist" />
         )}

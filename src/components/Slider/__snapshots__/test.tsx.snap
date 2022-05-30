@@ -114,8 +114,17 @@ exports[`<Slider /> should render children as slider item 1`] = `
 >
   <div
     class="slick-slider slick-initialized"
+    dir="ltr"
   >
-    
+    <button
+      class="slick-arrow slick-prev slick-disabled"
+      data-role="none"
+      style="display: block;"
+      type="button"
+    >
+       
+      Previous
+    </button>
     <div
       class="slick-list"
     >
@@ -140,8 +149,8 @@ exports[`<Slider /> should render children as slider item 1`] = `
           </div>
         </div>
         <div
-          aria-hidden="false"
-          class="slick-slide slick-active"
+          aria-hidden="true"
+          class="slick-slide"
           data-index="1"
           style="outline: none; width: 0px;"
           tabindex="-1"
@@ -157,8 +166,15 @@ exports[`<Slider /> should render children as slider item 1`] = `
         </div>
       </div>
     </div>
-    
-    
+    <button
+      class="slick-arrow slick-next"
+      data-role="none"
+      style="display: block;"
+      type="button"
+    >
+       
+      Next
+    </button>
   </div>
 </section>
 `

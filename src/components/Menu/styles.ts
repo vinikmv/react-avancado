@@ -6,11 +6,11 @@ export const Wrapper = styled.menu`
     display: flex;
     align-items: center;
     padding: ${theme.spacings.small} 0;
-    justify-content: space-between;
     position: relative;
     z-index: ${theme.layers.menu};
   `}
 `
+
 export const LogoWrapper = styled.div`
   ${media.lessThan('medium')`
     position: absolute;
@@ -21,8 +21,8 @@ export const LogoWrapper = styled.div`
 
 export const IconWrapper = styled.div`
   ${({ theme }) => css`
-    cursor: pointer;
     color: ${theme.colors.white};
+    cursor: pointer;
     width: 2.4rem;
     height: 2.4rem;
   `}
@@ -57,6 +57,7 @@ export const MenuLink = styled.a`
     margin: 0.3rem ${theme.spacings.small} 0;
     text-decoration: none;
     text-align: center;
+
     &:hover {
       &::after {
         content: '';
@@ -66,6 +67,7 @@ export const MenuLink = styled.a`
         background-color: ${theme.colors.primary};
         animation: hoverAnimation 0.2s forwards;
       }
+
       @keyframes hoverAnimation {
         from {
           width: 0;
@@ -142,6 +144,7 @@ export const RegisterBox = styled.div`
     flex-direction: column;
     align-items: center;
     padding: 0 ${theme.spacings.xlarge} ${theme.spacings.xlarge};
+
     > span {
       display: block;
       margin: ${theme.spacings.xxsmall} 0;

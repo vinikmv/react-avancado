@@ -32,13 +32,14 @@ describe('<Wishlist />', () => {
     expect(screen.getByTestId('Mock Showcase')).toBeInTheDocument()
   })
 
-  it('should render Empty when there are no games', () => {
+  it('should render empty when there are no games', () => {
     renderWithTheme(
       <Wishlist
         recommendedGames={gamesMock}
         recommendedHighlight={highlightMock}
       />
     )
+
     expect(screen.queryByText(/population zero/i)).not.toBeInTheDocument()
 
     expect(

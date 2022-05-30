@@ -15,16 +15,16 @@ export default {
     releaseDate: {
       control: 'date'
     },
-    genres: {
-      control: {
-        type: 'inline-check',
-        options: ['Role-playing', 'Narrative']
-      }
-    },
     platforms: {
       control: {
         type: 'inline-check',
         options: ['windows', 'linux', 'mac']
+      }
+    },
+    genres: {
+      control: {
+        type: 'inline-check',
+        options: ['Role-playing', 'Narrative']
       }
     }
   }
