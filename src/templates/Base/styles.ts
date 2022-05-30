@@ -7,7 +7,12 @@ export const Wrapper = styled.div`
   height: 100vh;
   justify-content: space-between;
 `
-
+export const Content = styled.div`
+  ${({ theme }) => css`
+    margin-top: ${theme.spacings.large};
+  `}
+  flex: 1 0 auto;
+`
 export const SectionFooter = styled.section`
   ${({ theme }) => css`
     margin-top: ${theme.spacings.large};
