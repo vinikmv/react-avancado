@@ -19,7 +19,7 @@ export type CartProps = {
 const Cart = ({
   recommendedGames,
   recommendedHighlight,
-  items = [],
+  items,
   total,
   cards
 }: CartProps) => {
@@ -31,7 +31,7 @@ const Cart = ({
         <Heading lineLeft lineColor="secondary">
           My Cart
         </Heading>
-        {items.length ? (
+        {items?.length ? (
           <S.Content>
             <CartList items={items} total={total} />{' '}
             <PaymentOptions cards={cards} handlePayment={handlePayment} />
