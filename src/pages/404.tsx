@@ -1,5 +1,5 @@
+import { Container } from 'components/Container'
 import Empty from 'components/Empty'
-import { Container } from 'next/app'
 import Base from 'templates/Base'
 
 export default function Page404() {
