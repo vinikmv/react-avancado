@@ -14,7 +14,7 @@ export async function getStaticProps() {
   const apolloClient = initializeApollo()
 
   const {
-    data: { banners, newGames }
+    data: { banners, newGames, upcomingGames, freeGames, sections }
   } = await apolloClient.query<QueryHome>({
     query: QUERY_HOME
   })
@@ -41,13 +41,50 @@ export async function getStaticProps() {
         img: game.cover?.url,
         price: game.price
       })),
-      mostPopularHighlight: highlightMock,
+      newGamesTitle: sections?.newGames?.title,
+      mostPopularGamesTitle: sections?.popularGames?.title,
+      mostPopularHighlight: {
+        title: sections?.popularGames?.highlight?.title,
+        subtitle: sections?.popularGames?.highlight?.subtitle,
+        backgroundImage: sections?.popularGames?.highlight?.floatImage?.url,
+        buttonLabel: sections?.popularGames?.highlight?.buttonLabel,
+        buttonLink: sections?.popularGames?.highlight?.buttonLink,
+        alignment: sections?.popularGames?.highlight?.alignment
+      },
       mostPopularGames: gamesMock,
-      upcomingGames: gamesMock,
-      upcomingHighlight: highlightMock,
-      upcomingMoreGames: gamesMock,
-      freeGames: gamesMock,
-      freeHighlight: highlightMock
+      upcomingGames: upcomingGames.map((game) => ({
+        title: game.name,
+        slug: game.slug,
+        developers: game.developers[0].name,
+        img: `http://localhost:1337${game.cover?.url}`,
+        price: game.price
+      })),
+      upcomingGamesTitle: sections?.upcomingGames?.title,
+      upcomingHighlight: {
+        title: sections?.upcomingGames?.highlight?.title,
+        subtitle: sections?.upcomingGames?.highlight?.subtitle,
+        backgroundImage: sections?.upcomingGames?.highlight?.floatImage?.url,
+        buttonLabel: sections?.upcomingGames?.highlight?.buttonLabel,
+        buttonLink: sections?.upcomingGames?.highlight?.buttonLink,
+        alignment: sections?.upcomingGames?.highlight?.alignment
+      },
+      freeGames: freeGames.map((game) => ({
+        title: game.name,
+        slug: game.slug,
+        developers: game.developers[0].name,
+        img: game.cover?.url,
+        price: game.price
+      })),
+      freeGamesTitle: sections?.freeGames?.title,
+
+      freeHighlight: {
+        title: sections?.freeGames?.highlight?.title,
+        subtitle: sections?.freeGames?.highlight?.subtitle,
+        backgroundImage: sections?.freeGames?.highlight?.floatImage?.url,
+        buttonLabel: sections?.freeGames?.highlight?.buttonLabel,
+        buttonLink: sections?.freeGames?.highlight?.buttonLink,
+        alignment: sections?.freeGames?.highlight?.alignment
+      }
     }
   }
 }
