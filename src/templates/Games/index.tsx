@@ -1,5 +1,4 @@
 import { KeyboardArrowDown as ArrowDown } from '@styled-icons/material-outlined/KeyboardArrowDown'
-import { Container } from 'components/Container'
 import ExploreSidebar, { ItemProps } from 'components/ExploreSidebar'
 import GameCard, { GameCardProps } from 'components/GameCard'
 import { Grid } from 'components/Grid'
