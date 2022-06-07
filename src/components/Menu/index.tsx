@@ -1,9 +1,9 @@
 import Link from 'next/link'
 
-import { Close as CloseIcon } from '@styled-icons/material-outlined/Close'
-import { Search as SearchIcon } from '@styled-icons/material-outlined/Search'
-import { Menu2 as MenuIcon } from '@styled-icons/remix-fill/Menu2'
 import { useState } from 'react'
+import { Menu2 as MenuIcon } from '@styled-icons/remix-fill/Menu2'
+import { Search as SearchIcon } from '@styled-icons/material-outlined/Search'
+import { Close as CloseIcon } from '@styled-icons/material-outlined/Close'
 
 import Button from 'components/Button'
 import Logo from 'components/Logo'
@@ -55,7 +55,6 @@ const Menu = ({ username }: MenuProps) => {
           <MediaMatch greaterThan="medium">
             <CartDropdown />
           </MediaMatch>
-
           <MediaMatch lessThan="medium">
             <Link href="/cart">
               <a>
@@ -90,7 +89,7 @@ const Menu = ({ username }: MenuProps) => {
               <Link href="/profile/me" passHref>
                 <S.MenuLink>My profile</S.MenuLink>
               </Link>
-              <Link href="/profile/wishlist" passHref>
+              <Link href="/wishlist" passHref>
                 <S.MenuLink>Wishlist</S.MenuLink>
               </Link>
             </>
