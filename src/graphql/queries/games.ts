@@ -3,7 +3,9 @@ import { GameFragment } from 'graphql/fragments/game'
 
 export const QUERY_GAMES = gql`
   query QueryGames($limit: Int!) {
-    ...GameFragment
+    games(limit: $limit) {
+      ...GameFragment
+    }
   }
   ${GameFragment}
 `
