@@ -1,9 +1,10 @@
 import { screen } from '@testing-library/react'
 import { renderWithTheme } from 'utils/tests/helpers'
-import gamesMock from 'components/GameCardSlider/mock'
 import filterItemsMock from 'components/ExploreSidebar/mock'
+import { MockedProvider } from '@apollo/client/testing'
 
 import Games from '.'
+import { QUERY_GAMES } from 'graphql/queries/games'
 
 jest.mock('templates/Base', () => ({
   __esModule: true,
@@ -19,23 +20,52 @@ jest.mock('components/ExploreSidebar', () => ({
   }
 }))
 
-jest.mock('components/GameCard', () => ({
-  __esModule: true,
-  default: function Mock() {
-    return <div data-testid="Mock GameCard" />
-  }
-}))
-
 describe('<Games />', () => {
-  it('should render sections', () => {
+  it('should render sections', async () => {
     renderWithTheme(
-      <Games filterItems={filterItemsMock} games={[gamesMock[0]]} />
+      <MockedProvider
+        mocks={[
+          {
+            request: {
+              query: QUERY_GAMES,
+              variables: { limit: 15 }
+            },
+            result: {
+              data: {
+                games: [
+                  {
+                    name: 'RimWorld',
+                    slug: 'rimworld',
+                    cover: {
+                      url: '/uploads/rimworld_8e93acc963.jpg'
+                    },
+                    developers: [{ name: 'Ludeon Studios' }],
+                    price: 65.99,
+                    __typename: 'Game'
+                  }
+                ]
+              }
+            }
+          }
+        ]}
+        addTypename={false}
+      >
+        <Games filterItems={filterItemsMock} />
+      </MockedProvider>
     )
 
-    expect(screen.getByTestId('Mock ExploreSidebar')).toBeInTheDocument()
-    expect(screen.getByTestId('Mock GameCard')).toBeInTheDocument()
+    // it starts without data
+    // shows loading
+    // expect(screen.getByText(/loading.../i)).toBeInTheDocument()
 
-    expect(
+    // we wait until we have data to get the elements
+    // get => tem certeza do elemento
+    // query => Não tem o elemento
+    // find => processos assincronos
+    expect(await screen.findByTestId('Mock ExploreSidebar')).toBeInTheDocument()
+    expect(await screen.findByText(/RimWorld/i)).toBeInTheDocument()
+
+    await expect(
       screen.getByRole('button', { name: /show more/i })
     ).toBeInTheDocument()
   })
