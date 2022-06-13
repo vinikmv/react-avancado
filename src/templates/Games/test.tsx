@@ -3,7 +3,7 @@ import { MockedProvider } from '@apollo/client/testing'
 
 import { renderWithTheme } from 'utils/tests/helpers'
 import filterItemsMock from 'components/ExploreSidebar/mock'
-import { fetchMoreMock, gamesMock } from './mocks'
+import { fetchMoreMock, gamesMock, noGamesMock } from './mocks'
 
 import Games from '.'
 import userEvent from '@testing-library/user-event'
@@ -33,48 +33,62 @@ jest.mock('templates/Base', () => ({
   }
 }))
 
-it('should render sections', async () => {
-  renderWithTheme(
-    <MockedProvider mocks={[gamesMock]} addTypename={false}>
-      <Games filterItems={filterItemsMock} />
-    </MockedProvider>
-  )
+describe('<Games />', () => {
+  it('should render sections', async () => {
+    renderWithTheme(
+      <MockedProvider mocks={[gamesMock]} addTypename={false}>
+        <Games filterItems={filterItemsMock} />
+      </MockedProvider>
+    )
 
-  expect(await screen.findByText(/Price/i)).toBeInTheDocument()
-  expect(await screen.findByText(/Sample Game/i)).toBeInTheDocument()
+    expect(await screen.findByText(/Price/i)).toBeInTheDocument()
+    expect(await screen.findByText(/Sample Game/i)).toBeInTheDocument()
 
-  expect(
-    await screen.findByRole('button', { name: /show more/i })
-  ).toBeInTheDocument()
-})
+    expect(
+      await screen.findByRole('button', { name: /show more/i })
+    ).toBeInTheDocument()
+  })
 
-it('should render more games when show more is clicked', async () => {
-  renderWithTheme(
-    <MockedProvider mocks={[gamesMock, fetchMoreMock]} cache={apolloCache}>
-      <Games filterItems={filterItemsMock} />
-    </MockedProvider>
-  )
+  it('should render empty when no games found', async () => {
+    renderWithTheme(
+      <MockedProvider mocks={[noGamesMock]} addTypename={false}>
+        <Games filterItems={filterItemsMock} />
+      </MockedProvider>
+    )
 
-  expect(await screen.findByText(/Sample Game/i)).toBeInTheDocument()
+    expect(
+      await screen.findByText(/We didn't find any games with this filter/i)
+    ).toBeInTheDocument()
+  })
 
-  userEvent.click(await screen.findByRole('button', { name: /show more/i }))
+  it('should render more games when show more is clicked', async () => {
+    renderWithTheme(
+      <MockedProvider mocks={[gamesMock, fetchMoreMock]} cache={apolloCache}>
+        <Games filterItems={filterItemsMock} />
+      </MockedProvider>
+    )
 
-  expect(await screen.findByText(/Fetch More Game/i)).toBeInTheDocument()
-})
+    expect(await screen.findByText(/Sample Game/i)).toBeInTheDocument()
 
-it('should change push router when selecting a filter', async () => {
-  renderWithTheme(
-    <MockedProvider mocks={[gamesMock, fetchMoreMock]} cache={apolloCache}>
-      <Games filterItems={filterItemsMock} />
-    </MockedProvider>
-  )
+    userEvent.click(await screen.findByRole('button', { name: /show more/i }))
 
-  userEvent.click(await screen.findByRole('checkbox', { name: /windows/i }))
-  userEvent.click(await screen.findByRole('checkbox', { name: /linux/i }))
-  userEvent.click(await screen.findByLabelText(/low to high/i))
+    expect(await screen.findByText(/Fetch More Game/i)).toBeInTheDocument()
+  })
 
-  expect(push).toHaveBeenCalledWith({
-    pathname: '/games',
-    query: { platforms: ['windows', 'linux'], sort_by: 'low-to-high' }
+  it('should change push router when selecting a filter', async () => {
+    renderWithTheme(
+      <MockedProvider mocks={[gamesMock, fetchMoreMock]} cache={apolloCache}>
+        <Games filterItems={filterItemsMock} />
+      </MockedProvider>
+    )
+
+    userEvent.click(await screen.findByRole('checkbox', { name: /windows/i }))
+    userEvent.click(await screen.findByRole('checkbox', { name: /linux/i }))
+    userEvent.click(await screen.findByLabelText(/low to high/i))
+
+    expect(push).toHaveBeenCalledWith({
+      pathname: '/games',
+      query: { platforms: ['windows', 'linux'], sort_by: 'low-to-high' }
+    })
   })
 })
