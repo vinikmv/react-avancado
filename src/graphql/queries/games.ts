@@ -7,12 +7,18 @@ export const QUERY_GAMES = gql`
     games(limit: $limit, start: $start, where: $where, sort: $sort) {
       ...GameFragment
     }
+
+    gamesConnection(where: $where) {
+      values {
+        id
+      }
+    }
   }
   ${GameFragment}
 `
 
 export const QUERY_GAME_BY_SLUG = gql`
-  query QueryGamesBySlug($slug: String!) {
+  query QueryGameBySlug($slug: String!) {
     games(where: { slug: $slug }) {
       name
       short_description
