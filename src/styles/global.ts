@@ -7,6 +7,7 @@ import {
 
 type GlobalStylesProps = {
   removeBg?: boolean
+  theme?: DefaultTheme
 }
 
 const GlobalStyles: GlobalStyleComponent<

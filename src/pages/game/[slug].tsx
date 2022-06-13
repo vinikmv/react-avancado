@@ -1,26 +1,22 @@
 import { useRouter } from 'next/router'
-import { initializeApollo } from 'utils/apollo'
 import Game, { GameTemplateProps } from 'templates/Game'
+import { initializeApollo } from 'utils/apollo'
 
-import galleryMock from 'components/Gallery/mock'
-import gamesMock from 'components/GameCardSlider/mock'
-import highlightMock from 'components/Highlight/mock'
 import { QueryGames, QueryGamesVariables } from 'graphql/generated/QueryGames'
-import { QUERY_GAMES, QUERY_GAME_BY_SLUG } from 'graphql/queries/games'
 import {
   QueryGamesBySlug,
   QueryGamesBySlugVariables
 } from 'graphql/generated/QueryGamesBySlug'
-import { GetStaticProps } from 'next'
-import { platform } from 'os'
-import { QUERY_RECOMMENDED } from 'graphql/queries/recommended'
 import { QueryRecommended } from 'graphql/generated/QueryRecommended'
-import { gamesMapper, highlightMapper } from 'utils/mappers'
 import {
   QueryUpcoming,
   QueryUpcomingVariables
 } from 'graphql/generated/QueryUpcoming'
+import { QUERY_GAMES, QUERY_GAME_BY_SLUG } from 'graphql/queries/games'
+import { QUERY_RECOMMENDED } from 'graphql/queries/recommended'
 import { QUERY_UPCOMING } from 'graphql/queries/upcoming'
+import { GetStaticProps } from 'next'
+import { gamesMapper, highlightMapper } from 'utils/mappers'
 
 const apolloClient = initializeApollo()
 

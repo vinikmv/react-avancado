@@ -74,7 +74,7 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
     filterCategories
   ]
 
-  const { data } = await apolloClient.query<QueryGames, QueryGamesVariables>({
+  await apolloClient.query<QueryGames, QueryGamesVariables>({
     query: QUERY_GAMES,
     variables: {
       limit: 15,
