@@ -25,7 +25,7 @@ export const decorators = [
       <CartContext.Provider
         value={{
           ...CartContextDefaultValues,
-          ...(context?.args?.CartContextValue || {}),
+          ...(context?.args?.cartContextValue || {}),
           ...context.args
         }}
       >
