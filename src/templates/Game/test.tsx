@@ -58,8 +58,7 @@ jest.mock('components/Showcase', () => ({
 
 describe('<Game />', () => {
   it('should render the template with components', () => {
-    
-render(<Game {...props} />)
+    render(<Game {...props} />)
     expect(screen.getByTestId('Mock Gallery')).toBeInTheDocument()
     expect(screen.getByTestId('Mock GameDetails')).toBeInTheDocument()
     expect(screen.getByTestId('Mock GameInfo')).toBeInTheDocument()
@@ -68,15 +67,13 @@ render(<Game {...props} />)
   })
 
   it('should not render the gallery if no images', () => {
-    
-render(<Game {...props} gallery={undefined} />)
+    render(<Game {...props} gallery={undefined} />)
 
     expect(screen.queryByTestId('Mock Gallery')).not.toBeInTheDocument()
   })
 
   it('should not render the gallery on mobile', () => {
-    
-render(<Game {...props} />)
+    render(<Game {...props} />)
 
     expect(screen.getByTestId('Mock Gallery').parentElement).toHaveStyle({
       display: 'none'
@@ -92,8 +89,7 @@ render(<Game {...props} />)
   })
 
   it('should render the cover image', () => {
-    
-render(<Game {...props} />)
+    render(<Game {...props} />)
 
     const cover = screen.getByRole('image', { name: /cover/i })
 
