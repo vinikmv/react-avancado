@@ -1,5 +1,4 @@
-import { screen } from '@testing-library/react'
-import { renderWithTheme } from 'utils/tests/helpers'
+import { render, screen } from 'utils/test-utils'
 
 import Highlight from '.'
 import * as S from './styles'
@@ -14,7 +13,8 @@ const props = {
 
 describe('<Highlight />', () => {
   it('should render headings and button', () => {
-    const { container } = renderWithTheme(<Highlight {...props} />)
+    const { container } = 
+render(<Highlight {...props} />)
 
     expect(
       screen.getByRole('heading', { name: /heading 1/i })
@@ -30,7 +30,8 @@ describe('<Highlight />', () => {
   })
 
   it('should render background image', () => {
-    const { container } = renderWithTheme(<Highlight {...props} />)
+    const { container } = 
+render(<Highlight {...props} />)
 
     expect(container.firstChild).toHaveStyle({
       backgroundImage: `url(${props.backgroundImage})`
@@ -38,7 +39,8 @@ describe('<Highlight />', () => {
   })
 
   it('should render float image', () => {
-    renderWithTheme(<Highlight {...props} floatImage="/float-image.png" />)
+    
+render(<Highlight {...props} floatImage="/float-image.png" />)
 
     expect(screen.getByRole('img', { name: props.title })).toHaveAttribute(
       'src',
@@ -47,7 +49,8 @@ describe('<Highlight />', () => {
   })
 
   it('should render align right by default', () => {
-    const { container } = renderWithTheme(<Highlight {...props} />)
+    const { container } = 
+render(<Highlight {...props} />)
 
     expect(container.firstChild).toHaveStyleRule(
       'grid-template-areas',
@@ -60,7 +63,8 @@ describe('<Highlight />', () => {
   })
 
   it('should render align left by default', () => {
-    const { container } = renderWithTheme(
+    const { container } = 
+render(
       <Highlight {...props} alignment="left" />
     )
 
