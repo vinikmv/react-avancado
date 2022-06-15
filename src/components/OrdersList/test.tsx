@@ -20,8 +20,7 @@ jest.mock('components/GameItem', () => ({
 
 describe('<OrdersList />', () => {
   it('should render the game items', () => {
-    
-render(<OrdersList items={ordersMock} />)
+    render(<OrdersList items={ordersMock} />)
 
     expect(
       screen.getByRole('heading', { name: /my orders/i })
@@ -31,8 +30,7 @@ render(<OrdersList items={ordersMock} />)
   })
 
   it('should render empty state', () => {
-    
-render(<OrdersList />)
+    render(<OrdersList />)
 
     expect(screen.getByTestId('Mock Empty')).toBeInTheDocument()
   })
