@@ -1,22 +1,26 @@
-import { AccountCircle, Email, Lock } from '@styled-icons/material-outlined'
 import Link from 'next/link'
+import { AccountCircle, Email, Lock } from '@styled-icons/material-outlined'
 
+import { FormWrapper, FormLink, FormLoading } from 'components/Form'
 import Button from 'components/Button'
-import { FormLink, FormWrapper } from 'components/Form'
 import TextField from 'components/TextField'
-import React, { useState } from 'react'
 import { UsersPermissionsRegisterInput } from 'graphql/generated/globalTypes'
+import React, { useState } from 'react'
 import { useMutation } from '@apollo/client'
-import { MUTATION_REGISTER } from 'graphql/mutations/client'
+import { MUTATION_REGISTER } from 'graphql/mutations/register'
 
 const FormSignUp = () => {
   const [values, setValues] = useState<UsersPermissionsRegisterInput>({
-    email: '',
     username: '',
+    email: '',
     password: ''
   })
 
-  const [createUser] = useMutation(MUTATION_REGISTER)
+  const [createUser, { loading }] = useMutation(MUTATION_REGISTER)
+
+  const handleInput = (field: string, value: string) => {
+    setValues((s) => ({ ...s, [field]: value }))
+  }
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
@@ -24,17 +28,14 @@ const FormSignUp = () => {
     createUser({
       variables: {
         input: {
-          email: values.email,
           username: values.username,
+          email: values.email,
           password: values.password
         }
       }
     })
   }
 
-  const handleInput = (field: string, value: string) => {
-    setValues((s) => ({ ...s, [field]: value }))
-  }
   return (
     <FormWrapper>
       <form onSubmit={handleSubmit}>
@@ -67,8 +68,8 @@ const FormSignUp = () => {
           icon={<Lock />}
         />
 
-        <Button type="submit" size="large" fullWidth>
-          Sign up now
+        <Button type="submit" size="large" fullWidth disabled={loading}>
+          {loading ? <FormLoading /> : <span>Sign up now</span>}
         </Button>
 
         <FormLink>
