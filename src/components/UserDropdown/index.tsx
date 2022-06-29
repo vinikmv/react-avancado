@@ -1,3 +1,4 @@
+import { signOut } from 'next-auth/client'
 import {
   AccountCircle,
   ExitToApp,
@@ -24,7 +25,7 @@ const UserDropdown = ({ username }: UserDropdownProps) => (
     }
   >
     <S.Nav>
-      <Link href="/profile/em" passHref>
+      <Link href="/profile/me" passHref>
         <S.Link>
           <AccountCircle />
           <span>My profile</span>
@@ -36,12 +37,10 @@ const UserDropdown = ({ username }: UserDropdownProps) => (
           <span>Wishlist</span>
         </S.Link>
       </Link>
-      <Link href="/profile/em" passHref>
-        <S.Link>
-          <ExitToApp />
-          <span>Sign out</span>
-        </S.Link>
-      </Link>
+      <S.Link role="button" onClick={() => signOut()} title="Sign out">
+        <ExitToApp />
+        <span>Sign out</span>
+      </S.Link>
     </S.Nav>
   </Dropdown>
 )
