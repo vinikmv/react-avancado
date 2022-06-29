@@ -14,6 +14,13 @@ const props = {
   recommendedTitle: 'You may like these games'
 }
 
+jest.mock('templates/Base', () => ({
+  __esModule: true,
+  default: function Mock({ children }: { children: React.ReactNode }) {
+    return <div data-testid="Mock Base">{children}</div>
+  }
+}))
+
 jest.mock('components/Showcase', () => ({
   __esModule: true,
   default: function Mock() {
@@ -23,8 +30,7 @@ jest.mock('components/Showcase', () => ({
 
 describe('<Wishlist />', () => {
   it('should render correctly', () => {
-    
-render(<Wishlist {...props} />)
+    render(<Wishlist {...props} />)
 
     expect(
       screen.getByRole('heading', { name: /wishlist/i })
@@ -35,8 +41,7 @@ render(<Wishlist {...props} />)
   })
 
   it('should render empty when there are no games', () => {
-    
-render(
+    render(
       <Wishlist
         recommendedTitle="You may like these games"
         recommendedGames={gamesMock}

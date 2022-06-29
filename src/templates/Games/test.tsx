@@ -42,8 +42,7 @@ jest.mock('next/link', () => ({
 
 describe('<Games />', () => {
   it('should render sections', async () => {
-    
-render(
+    render(
       <MockedProvider mocks={[gamesMock]} addTypename={false}>
         <Games filterItems={filterItemsMock} />
       </MockedProvider>
@@ -58,8 +57,7 @@ render(
   })
 
   it('should render empty when no games found', async () => {
-    
-render(
+    render(
       <MockedProvider mocks={[noGamesMock]} addTypename={false}>
         <Games filterItems={filterItemsMock} />
       </MockedProvider>
@@ -71,8 +69,7 @@ render(
   })
 
   it('should render more games when show more is clicked', async () => {
-    
-render(
+    render(
       <MockedProvider mocks={[gamesMock, fetchMoreMock]} cache={apolloCache}>
         <Games filterItems={filterItemsMock} />
       </MockedProvider>
@@ -86,8 +83,7 @@ render(
   })
 
   it('should change push router when selecting a filter', async () => {
-    
-render(
+    render(
       <MockedProvider mocks={[gamesMock, fetchMoreMock]} cache={apolloCache}>
         <Games filterItems={filterItemsMock} />
       </MockedProvider>
