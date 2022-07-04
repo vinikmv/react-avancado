@@ -3,9 +3,8 @@ import {
   Email,
   ErrorOutline
 } from '@styled-icons/material-outlined'
-import { signIn } from 'next-auth/client'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import Button from 'components/Button'
 import {
@@ -20,10 +19,11 @@ import { FieldErrors, forgotValidate } from 'utils/validations'
 import { valueFromASTUntyped } from 'graphql'
 
 const FormForgotPassword = () => {
+  const { query } = useRouter()
   const [success, setSuccess] = useState(false)
   const [formError, setFormError] = useState('')
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({})
-  const [values, setValues] = useState({ email: '' })
+  const [values, setValues] = useState({ email: (query.email as string) || '' })
   const [loading, setLoading] = useState(false)
 
   const handleInput = (field: string, value: string) => {
@@ -59,7 +59,7 @@ const FormForgotPassword = () => {
     setLoading(false)
 
     if (data.error) {
-      console.log(data)
+      setFormError(data.message[0].messages[0].message)
     } else {
       setSuccess(true)
     }
@@ -84,6 +84,7 @@ const FormForgotPassword = () => {
               name="email"
               placeholder="Email"
               type="text"
+              initialValue={query.email as string}
               error={fieldErrors.email}
               onInputChange={(v) => handleInput('email', v)}
               icon={<Email />}

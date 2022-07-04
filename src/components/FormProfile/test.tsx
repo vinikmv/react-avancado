@@ -4,8 +4,7 @@ import FormProfile from '.'
 
 describe('<FormProfile />', () => {
   it('should render the profile form', () => {
-    
-render(<FormProfile />)
+    render(<FormProfile />)
 
     expect(
       screen.getByRole('heading', { name: /my profile/i })
@@ -18,7 +17,9 @@ render(<FormProfile />)
       screen.getByPlaceholderText(/type your password/i)
     ).toBeInTheDocument()
 
-    expect(screen.getByPlaceholderText(/new password/i)).toBeInTheDocument()
+    expect(
+      screen.getByRole('link', { name: /reset password/i })
+    ).toBeInTheDocument()
 
     expect(screen.getByRole('button', { name: /save/i })).toBeInTheDocument()
   })
