@@ -1,17 +1,18 @@
-import { Email, ErrorOutline, Lock } from '@styled-icons/material-outlined'
+import { useState } from 'react'
 import { signIn } from 'next-auth/client'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
 
+import { Lock, ErrorOutline } from '@styled-icons/material-outlined'
+
+import { FormWrapper, FormLoading, FormError } from 'components/Form'
 import Button from 'components/Button'
-import { FormError, FormLoading, FormWrapper } from 'components/Form'
 import TextField from 'components/TextField'
 
 import { FieldErrors, resetValidate } from 'utils/validations'
 
 const FormResetPassword = () => {
   const [formError, setFormError] = useState('')
-  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({})
+  const [fieldError, setFieldError] = useState<FieldErrors>({})
   const [values, setValues] = useState({ password: '', confirm_password: '' })
   const [loading, setLoading] = useState(false)
   const { query } = useRouter()
@@ -21,18 +22,18 @@ const FormResetPassword = () => {
   }
 
   const handleSubmit = async (event: React.FormEvent) => {
-    setLoading(true)
     event.preventDefault()
+    setLoading(true)
 
     const errors = resetValidate(values)
 
     if (Object.keys(errors).length) {
-      setFieldErrors(errors)
+      setFieldError(errors)
       setLoading(false)
       return
     }
 
-    setFieldErrors({})
+    setFieldError({})
 
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/auth/reset-password`,
@@ -52,11 +53,11 @@ const FormResetPassword = () => {
     const data = await response.json()
 
     if (data.error) {
-      setFormError(data.message[0].message[0].message)
+      setFormError(data.message[0].messages[0].message)
       setLoading(false)
     } else {
       signIn('credentials', {
-        email: data.email,
+        email: data.user.email,
         password: values.password,
         callbackUrl: '/'
       })
@@ -67,8 +68,7 @@ const FormResetPassword = () => {
     <FormWrapper>
       {!!formError && (
         <FormError>
-          <ErrorOutline />
-          <span>{formError}</span>
+          <ErrorOutline /> {formError}
         </FormError>
       )}
       <form onSubmit={handleSubmit}>
@@ -76,7 +76,7 @@ const FormResetPassword = () => {
           name="password"
           placeholder="Password"
           type="password"
-          error={fieldErrors?.password}
+          error={fieldError?.password}
           onInputChange={(v) => handleInput('password', v)}
           icon={<Lock />}
         />
@@ -84,13 +84,13 @@ const FormResetPassword = () => {
           name="confirm_password"
           placeholder="Confirm password"
           type="password"
-          error={fieldErrors?.confirm_password}
+          error={fieldError?.confirm_password}
           onInputChange={(v) => handleInput('confirm_password', v)}
           icon={<Lock />}
         />
 
         <Button type="submit" size="large" fullWidth disabled={loading}>
-          {loading ? <FormLoading /> : <span> Reset password</span>}
+          {loading ? <FormLoading /> : <span>Reset Password</span>}
         </Button>
       </form>
     </FormWrapper>
