@@ -1,28 +1,28 @@
+import { useState } from 'react'
+import { useRouter } from 'next/router'
+
 import {
   CheckCircleOutline,
   Email,
   ErrorOutline
 } from '@styled-icons/material-outlined'
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
 
-import Button from 'components/Button'
 import {
-  FormError,
+  FormWrapper,
   FormLoading,
-  FormSuccess,
-  FormWrapper
+  FormError,
+  FormSuccess
 } from 'components/Form'
+import Button from 'components/Button'
 import TextField from 'components/TextField'
 
 import { FieldErrors, forgotValidate } from 'utils/validations'
-import { valueFromASTUntyped } from 'graphql'
 
 const FormForgotPassword = () => {
   const { query } = useRouter()
   const [success, setSuccess] = useState(false)
   const [formError, setFormError] = useState('')
-  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({})
+  const [fieldError, setFieldError] = useState<FieldErrors>({})
   const [values, setValues] = useState({ email: (query.email as string) || '' })
   const [loading, setLoading] = useState(false)
 
@@ -31,18 +31,18 @@ const FormForgotPassword = () => {
   }
 
   const handleSubmit = async (event: React.FormEvent) => {
-    setLoading(true)
     event.preventDefault()
+    setLoading(true)
 
     const errors = forgotValidate(values)
 
     if (Object.keys(errors).length) {
-      setFieldErrors(errors)
+      setFieldError(errors)
       setLoading(false)
       return
     }
 
-    setFieldErrors({})
+    setFieldError({})
 
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/auth/forgot-password`,
@@ -51,7 +51,7 @@ const FormForgotPassword = () => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(valueFromASTUntyped)
+        body: JSON.stringify(values)
       }
     )
 
@@ -69,14 +69,14 @@ const FormForgotPassword = () => {
     <FormWrapper>
       {success ? (
         <FormSuccess>
-          <CheckCircleOutline /> You just received and email
+          <CheckCircleOutline />
+          You just received an email!
         </FormSuccess>
       ) : (
         <>
           {!!formError && (
             <FormError>
-              <ErrorOutline />
-              <span>{formError}</span>
+              <ErrorOutline /> {formError}
             </FormError>
           )}
           <form onSubmit={handleSubmit}>
@@ -84,14 +84,14 @@ const FormForgotPassword = () => {
               name="email"
               placeholder="Email"
               type="text"
+              error={fieldError?.email}
               initialValue={query.email as string}
-              error={fieldErrors.email}
               onInputChange={(v) => handleInput('email', v)}
               icon={<Email />}
             />
 
             <Button type="submit" size="large" fullWidth disabled={loading}>
-              {loading ? <FormLoading /> : <span> Send email</span>}
+              {loading ? <FormLoading /> : <span>Send email</span>}
             </Button>
           </form>
         </>
