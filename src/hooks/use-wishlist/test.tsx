@@ -4,6 +4,7 @@ import { renderHook } from '@testing-library/react-hooks'
 import { useWishlist, WishlistProvider } from '.'
 import {
   createWishlistMock,
+  removeWishlistMock,
   updateWishlistMock,
   wishlistItems,
   wishlistMock
@@ -74,7 +75,7 @@ describe('useWishlist', () => {
     expect(result.current.items).toStrictEqual([wishlistItems[2]])
   })
 
-  it('should add item in wishlist creating a new list', async () => {
+  it('should update item in wishlist', async () => {
     const wrapper = ({ children }: { children: React.ReactNode }) => (
       <MockedProvider mocks={[wishlistMock, updateWishlistMock]}>
         <WishlistProvider>{children}</WishlistProvider>
@@ -93,6 +94,28 @@ describe('useWishlist', () => {
 
     await waitFor(() => {
       expect(result.current.items).toStrictEqual(wishlistItems)
+    })
+  })
+
+  it('should remove item in wishlist', async () => {
+    const wrapper = ({ children }: { children: React.ReactNode }) => (
+      <MockedProvider mocks={[wishlistMock, removeWishlistMock]}>
+        <WishlistProvider>{children}</WishlistProvider>
+      </MockedProvider>
+    )
+
+    const { result, waitForNextUpdate } = renderHook(() => useWishlist(), {
+      wrapper
+    })
+
+    await waitForNextUpdate()
+
+    act(() => {
+      result.current.removeFromWishlist('1')
+    })
+
+    await waitFor(() => {
+      expect(result.current.items).toStrictEqual([wishlistItems[1]])
     })
   })
 })
