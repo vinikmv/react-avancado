@@ -1,17 +1,16 @@
 import Wishlist, { WishlistTemplateProps } from 'templates/Wishlist'
 
-import gamesMock from 'components/GameCardSlider/mock'
 import { QueryRecommended } from 'graphql/generated/QueryRecommended'
-import { QUERY_RECOMMENDED } from 'graphql/queries/recommended'
-import { initializeApollo } from 'utils/apollo'
-import { gamesMapper, highlightMapper } from 'utils/mappers'
-import { GetServerSidePropsContext } from 'next'
-import protectedRoutes from 'utils/protected-routes'
 import {
   QueryWishlist,
   QueryWishlistVariables
 } from 'graphql/generated/QueryWishlist'
+import { QUERY_RECOMMENDED } from 'graphql/queries/recommended'
 import { QUERY_WISHLIST } from 'graphql/queries/wishlist'
+import { GetServerSidePropsContext } from 'next'
+import { initializeApollo } from 'utils/apollo'
+import { gamesMapper, highlightMapper } from 'utils/mappers'
+import protectedRoutes from 'utils/protected-routes'
 
 export default function WishlistPage(props: WishlistTemplateProps) {
   return <Wishlist {...props} />
