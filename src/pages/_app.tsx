@@ -10,7 +10,7 @@ import { ThemeProvider } from 'styled-components'
 import GlobalStyles from 'styles/global'
 import theme from 'styles/theme'
 import { useApollo } from 'utils/apollo'
-import { WishListProvider } from 'hooks/use-wishlist'
+import { WishlistProvider } from 'hooks/use-wishlist'
 
 function App({ Component, pageProps }: AppProps) {
   const client = useApollo(pageProps.initialApolloState)
@@ -19,7 +19,7 @@ function App({ Component, pageProps }: AppProps) {
       <ApolloProvider client={client}>
         <ThemeProvider theme={theme}>
           <CartProvider>
-            <WishListProvider>
+            <WishlistProvider>
               <Head>
                 <title>Won Games</title>
                 <link rel="shortcut icon" href="/img/icon-512.png" />
@@ -39,7 +39,7 @@ function App({ Component, pageProps }: AppProps) {
                 showOnShallow={true}
               />
               <Component {...pageProps} />
-            </WishListProvider>
+            </WishlistProvider>
           </CartProvider>
         </ThemeProvider>
       </ApolloProvider>
