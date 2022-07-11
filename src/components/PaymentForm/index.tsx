@@ -8,8 +8,14 @@ import Button from 'components/Button'
 import Heading from 'components/Heading'
 
 import * as S from './styles'
+import { createPaymentIntent } from 'utils/stripe/methods'
+import { Session } from 'next-auth/client'
 
-const PaymentForm = () => {
+type PaymentFormProps = {
+  session: Session
+}
+
+const PaymentForm = ({ session }: PaymentFormProps) => {
   const { items } = useCart()
   const [error, setError] = useState<string | null>(null)
   const [disabled, setDisabled] = useState(true)
@@ -17,10 +23,29 @@ const PaymentForm = () => {
   const [freeGames, setFreeGames] = useState(false)
 
   useEffect(() => {
-    if (items.length) {
-      // bater na API /orders/create-payment-intent
+    async function setPaymentMode() {
+      if (items.length) {
+        const data = await createPaymentIntent({
+          items,
+          token: session.jwt
+        })
+
+        if (data.freeGames) {
+          setFreeGames(true)
+          return
+        }
+
+        if (data.error) {
+          setError(data.error)
+        } else {
+          setFreeGames(false)
+          setClientSecret(data.client_secret)
+        }
+      }
     }
-  }, [items])
+
+    setPaymentMode()
+  }, [items, session])
 
   const handleChange = async (event: StripeCardElementChangeEvent) => {
     setDisabled(event.empty)
@@ -34,17 +59,21 @@ const PaymentForm = () => {
           Payment
         </Heading>
 
-        <CardElement
-          options={{
-            hidePostalCode: true,
-            style: {
-              base: {
-                fontSize: '16px'
+        {freeGames ? (
+          <S.FreeGames>Only free games, click buy and enjoy!</S.FreeGames>
+        ) : (
+          <CardElement
+            options={{
+              hidePostalCode: true,
+              style: {
+                base: {
+                  fontSize: '16px'
+                }
               }
-            }
-          }}
-          onChange={handleChange}
-        />
+            }}
+            onChange={handleChange}
+          />
+        )}
 
         {error && (
           <S.Error>
@@ -60,7 +89,7 @@ const PaymentForm = () => {
         <Button
           fullWidth
           icon={<ShoppingCart />}
-          disabled={disabled || !!error}
+          disabled={!freeGames && (disabled || !!error)}
         >
           Buy now
         </Button>
