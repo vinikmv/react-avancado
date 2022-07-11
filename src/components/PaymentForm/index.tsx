@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react'
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
-import { StripeCardElementChangeEvent } from '@stripe/stripe-js'
+import { PaymentIntent, StripeCardElementChangeEvent } from '@stripe/stripe-js'
 import { ErrorOutline, ShoppingCart } from '@styled-icons/material-outlined'
+import { useRouter } from 'next/router'
+import React, { useEffect, useState } from 'react'
 
-import { useCart } from 'hooks/use-cart'
 import Button from 'components/Button'
 import Heading from 'components/Heading'
+import { useCart } from 'hooks/use-cart'
 
-import * as S from './styles'
-import { createPaymentIntent } from 'utils/stripe/methods'
-import { Session } from 'next-auth/client'
 import { FormLoading } from 'components/Form'
+import { Session } from 'next-auth/client'
+import { createPayment, createPaymentIntent } from 'utils/stripe/methods'
+import * as S from './styles'
 
 type PaymentFormProps = {
   session: Session
@@ -18,6 +19,7 @@ type PaymentFormProps = {
 
 const PaymentForm = ({ session }: PaymentFormProps) => {
   const { items } = useCart()
+  const { push } = useRouter()
   const stripe = useStripe()
   const elements = useElements()
 
@@ -57,9 +59,26 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
     setError(event.error ? event.error.message : '')
   }
 
+  const saveOrder = async (paymentIntent?: PaymentIntent) => {
+    const data = await createPayment({
+      items,
+      paymentIntent,
+      token: session.jwt
+    })
+
+    return data
+  }
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
     setLoading(true)
+
+    if (freeGames) {
+      saveOrder()
+
+      push('/success')
+      return
+    }
 
     const payload = await stripe!.confirmCardPayment(clientSecret, {
       payment_method: {
@@ -73,6 +92,10 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
     } else {
       setError(null)
       setLoading(false)
+
+      saveOrder(payload.paymentIntent)
+
+      push('/success')
     }
   }
 
