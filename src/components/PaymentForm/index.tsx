@@ -11,7 +11,7 @@ import Heading from 'components/Heading'
 
 import * as S from './styles'
 import { createPayment, createPaymentIntent } from 'utils/stripe/methods'
-import { Session } from 'next-auth/client'
+import { Session } from 'next-auth'
 import { FormLoading } from 'components/Form'
 
 type PaymentFormProps = {
@@ -35,7 +35,7 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
       if (items.length) {
         const data = await createPaymentIntent({
           items,
-          token: session.jwt
+          token: session.jwt as string
         })
 
         if (data.freeGames) {
@@ -64,7 +64,7 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
     const data = await createPayment({
       items,
       paymentIntent,
-      token: session.jwt
+      token: session.jwt as string
     })
 
     return data
