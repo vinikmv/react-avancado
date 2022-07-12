@@ -17,6 +17,7 @@ import { QUERY_RECOMMENDED } from 'graphql/queries/recommended'
 import { QUERY_UPCOMING } from 'graphql/queries/upcoming'
 import { GetStaticProps } from 'next'
 import { gamesMapper, highlightMapper } from 'utils/mappers'
+import { getImageUrl } from 'utils/getImageUrl'
 
 const apolloClient = initializeApollo()
 
@@ -74,14 +75,17 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     revalidate: 60,
     props: {
-      cover: game.cover?.src,
+      cover: `${getImageUrl(game.cover?.src)}`,
       gameInfo: {
         id: game.id,
         title: game.name,
         price: game.price,
         description: game.short_description
       },
-      gallery: game.gallery,
+      gallery: game.gallery.map((image) => ({
+        src: `${getImageUrl(image.src)}`,
+        label: image.label
+      })),
       description: game.description,
       details: {
         developer: game.developers[0].name,
