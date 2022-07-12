@@ -1,3 +1,4 @@
+import 'session.mock'
 import 'match-media-mock'
 
 import { render, screen } from 'utils/test-utils'
@@ -15,8 +16,7 @@ const props = {
 
 describe('<Showcase />', () => {
   it('should render full showcase', () => {
-    
-render(<Showcase {...props} />)
+    render(<Showcase {...props} />)
 
     expect(
       screen.getByRole('heading', { name: /most popular/i })
@@ -32,10 +32,7 @@ render(<Showcase {...props} />)
   })
 
   it('should render without title', () => {
-    
-render(
-      <Showcase games={props.games} highlight={props.highlight} />
-    )
+    render(<Showcase games={props.games} highlight={props.highlight} />)
 
     screen.getByRole('heading', { name: highlightMock.title })
     screen.getByRole('heading', { name: gamesMock[0].title })
@@ -46,8 +43,7 @@ render(
   })
 
   it('should render without highlight', () => {
-    
-render(<Showcase title={props.title} games={props.games} />)
+    render(<Showcase title={props.title} games={props.games} />)
 
     screen.getByRole('heading', { name: /most popular/i })
     screen.getByRole('heading', { name: gamesMock[0].title })
@@ -58,10 +54,7 @@ render(<Showcase title={props.title} games={props.games} />)
   })
 
   it('should render without games', () => {
-    
-render(
-      <Showcase title={props.title} highlight={props.highlight} />
-    )
+    render(<Showcase title={props.title} highlight={props.highlight} />)
 
     screen.getByRole('heading', { name: /most popular/i })
     screen.getByRole('heading', { name: highlightMock.title })

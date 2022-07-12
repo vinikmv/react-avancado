@@ -1,3 +1,4 @@
+import 'next-image.mock'
 import { render, screen } from 'utils/test-utils'
 
 import Highlight from '.'
@@ -13,8 +14,7 @@ const props = {
 
 describe('<Highlight />', () => {
   it('should render headings and button', () => {
-    const { container } = 
-render(<Highlight {...props} />)
+    const { container } = render(<Highlight {...props} />)
 
     expect(
       screen.getByRole('heading', { name: /heading 1/i })
@@ -30,17 +30,15 @@ render(<Highlight {...props} />)
   })
 
   it('should render background image', () => {
-    const { container } = 
-render(<Highlight {...props} />)
+    render(<Highlight {...props} />)
 
-    expect(container.firstChild).toHaveStyle({
-      backgroundImage: `url(${props.backgroundImage})`
-    })
+    expect(
+      screen.getByRole('img', { name: `${props.title} background` })
+    ).toHaveAttribute('src', `${props.backgroundImage}`)
   })
 
   it('should render float image', () => {
-    
-render(<Highlight {...props} floatImage="/float-image.png" />)
+    render(<Highlight {...props} floatImage="/float-image.png" />)
 
     expect(screen.getByRole('img', { name: props.title })).toHaveAttribute(
       'src',
@@ -49,8 +47,7 @@ render(<Highlight {...props} floatImage="/float-image.png" />)
   })
 
   it('should render align right by default', () => {
-    const { container } = 
-render(<Highlight {...props} />)
+    const { container } = render(<Highlight {...props} />)
 
     expect(container.firstChild).toHaveStyleRule(
       'grid-template-areas',
@@ -63,10 +60,7 @@ render(<Highlight {...props} />)
   })
 
   it('should render align left by default', () => {
-    const { container } = 
-render(
-      <Highlight {...props} alignment="left" />
-    )
+    const { container } = render(<Highlight {...props} alignment="left" />)
 
     expect(container.firstChild).toHaveStyleRule(
       'grid-template-areas',

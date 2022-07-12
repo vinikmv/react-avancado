@@ -9,11 +9,10 @@ const props = {
 
 describe('<Empty />', () => {
   it('should render correctly', () => {
-    const { container } = 
-render(<Empty {...props} hasLink />)
+    const { container } = render(<Empty {...props} hasLink />)
 
     expect(
-      screen.getByRole('image', {
+      screen.getByRole('img', {
         name: /a gamer in a couch playing videogame/i
       })
     ).toBeInTheDocument()
@@ -32,8 +31,7 @@ render(<Empty {...props} hasLink />)
   })
 
   it('should not render link when hasLink is not passed', () => {
-    
-render(<Empty {...props} />)
+    render(<Empty {...props} />)
 
     expect(
       screen.queryByRole('link', { name: /go back to store/i })
