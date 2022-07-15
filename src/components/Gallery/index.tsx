@@ -67,6 +67,7 @@ const Gallery = ({ items }: GalleryProps) => {
   const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
+    console.log('ITEMS GALLERY: ', items)
     const handleKeyUp = ({ key }: KeyboardEvent) => {
       key === 'Escape' && setIsOpen(false)
     }
