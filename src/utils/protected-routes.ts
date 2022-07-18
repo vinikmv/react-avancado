@@ -7,9 +7,8 @@ async function protectedRoutes(context: GetServerSidePropsContext) {
   if (!session) {
     context.res.setHeader(
       'Location',
-      `sign-in?callbackUrl-${context.resolvedUrl}`
+      `/sign-in?callbackUrl=${context.resolvedUrl}`
     )
-
     context.res.statusCode = 302
   }
 
