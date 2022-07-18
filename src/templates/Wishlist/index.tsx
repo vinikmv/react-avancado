@@ -27,11 +27,10 @@ const Wishlist = ({
   const { items, loading } = useWishlist()
   return (
     <Base>
-      <Container>
+      <Container data-cy="wishlist">
         <Heading lineLeft lineColor="secondary">
           Wishlist
         </Heading>
-
         {loading ? (
           <S.Loading>
             <Loader />
@@ -49,7 +48,6 @@ const Wishlist = ({
             hasLink
           />
         )}
-
         <Divider />
       </Container>
 
