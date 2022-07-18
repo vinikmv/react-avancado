@@ -1,14 +1,15 @@
-import NextNProgress from 'nextjs-progressbar'
+import NextNprogress from 'nextjs-progressbar'
 
 import { DefaultSeo } from 'next-seo'
 import SEO from '../../next-seo.config'
 
 import { Provider as AuthProvider } from 'next-auth/client'
 import { ApolloProvider } from '@apollo/client'
+import { ThemeProvider } from 'styled-components'
 import { CartProvider } from 'hooks/use-cart'
+
 import { AppProps } from 'next/app'
 import Head from 'next/head'
-import { ThemeProvider } from 'styled-components'
 
 import GlobalStyles from 'styles/global'
 import theme from 'styles/theme'
@@ -17,6 +18,7 @@ import { WishlistProvider } from 'hooks/use-wishlist'
 
 function App({ Component, pageProps }: AppProps) {
   const client = useApollo(pageProps.initialApolloState)
+
   return (
     <AuthProvider session={pageProps.session}>
       <ApolloProvider client={client}>
@@ -35,12 +37,11 @@ function App({ Component, pageProps }: AppProps) {
               </Head>
               <DefaultSeo {...SEO} />
               <GlobalStyles />
-              <NextNProgress
+              <NextNprogress
                 color="#F231A5"
                 startPosition={0.3}
                 stopDelayMs={200}
-                height={3}
-                showOnShallow={true}
+                height={5}
               />
               <Component {...pageProps} />
             </WishlistProvider>
