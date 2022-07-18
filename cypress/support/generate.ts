@@ -8,7 +8,7 @@ export type User = {
 
 export const createUser = build<User>('User', {
   fields: {
-    username: fake((f) => f.internet.userName()),
+    username: fake((f) => `${f.internet.userName()}e2e`),
     email: '',
     password: fake((f) => f.internet.password())
   },
