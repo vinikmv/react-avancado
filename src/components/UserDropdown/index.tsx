@@ -44,7 +44,7 @@ const UserDropdown = ({ username }: UserDropdownProps) => {
         <S.Link
           role="button"
           onClick={async () => {
-            const data = await signOut({ redirect: false, callbackUrl: '/foo' })
+            const data = await signOut({ redirect: false, callbackUrl: '/' })
             push(data.url)
           }}
           title="Sign out"
