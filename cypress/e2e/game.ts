@@ -61,12 +61,10 @@ describe('Game Page', () => {
       cy.findByRole('heading', {name: /cyberpunk 2077/i}).should('exist')
     })
 
-    // close dropdown
     cy.findAllByLabelText(/cart items/i)
     .first()
     .click()
 
-  // remove from cart
     cy.getByDataCy('game-info').within(() => {
       cy.findByRole('button', { name: /remove from cart/i }).click()
       cy.findByRole('button', { name: /add to cart/i }).should('exist')
