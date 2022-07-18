@@ -4,23 +4,9 @@ describe('Cart', () => {
   it('should add and remove items from cart', () => {
     cy.visit('/')
 
-    cy.getByDataCy('game-card')
-      .first()
-      .within(() => {
-        cy.findByRole('button', { name: /add to cart/i }).click()
-      })
-
-    cy.getByDataCy('game-card')
-      .eq(1)
-      .within(() => {
-        cy.findByRole('button', { name: /add to cart/i }).click()
-      })
-
-    cy.getByDataCy('game-card')
-      .eq(2)
-      .within(() => {
-        cy.findByRole('button', { name: /add to cart/i }).click()
-      })
+    cy.addToCartByIndex(0)
+    cy.addToCartByIndex(1)
+    cy.addToCartByIndex(2)
 
     cy.findAllByLabelText(/cart items/i)
       .first()
@@ -35,23 +21,9 @@ describe('Cart', () => {
       .first()
       .click()
 
-    cy.getByDataCy('game-card')
-      .first()
-      .within(() => {
-        cy.findByRole('button', { name: /remove from cart/i }).click()
-      })
-
-    cy.getByDataCy('game-card')
-      .eq(1)
-      .within(() => {
-        cy.findByRole('button', { name: /remove from cart/i }).click()
-      })
-
-    cy.getByDataCy('game-card')
-      .eq(2)
-      .within(() => {
-        cy.findByRole('button', { name: /remove from cart/i }).click()
-      })
+    cy.removeFromCartByIndex(0)
+    cy.removeFromCartByIndex(1)
+    cy.removeFromCartByIndex(2)
 
     cy.findAllByLabelText(/cart items/i).should('not.exist')
 
