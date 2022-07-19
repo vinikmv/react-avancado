@@ -8,8 +8,7 @@ import items from './mock'
 
 describe('<ExploreSidebar />', () => {
   it('should render the heading', () => {
-    
-render(<ExploreSidebar items={items} onFilter={jest.fn} />)
+    render(<ExploreSidebar items={items} onFilter={jest.fn} />)
 
     expect(screen.getByRole('heading', { name: /price/i })).toBeInTheDocument()
     expect(
@@ -22,8 +21,7 @@ render(<ExploreSidebar items={items} onFilter={jest.fn} />)
   })
 
   it('should render inputs', () => {
-    
-render(<ExploreSidebar items={items} onFilter={jest.fn} />)
+    render(<ExploreSidebar items={items} onFilter={jest.fn} />)
 
     expect(
       screen.getByRole('checkbox', { name: /under \$50/i })
@@ -35,15 +33,13 @@ render(<ExploreSidebar items={items} onFilter={jest.fn} />)
   })
 
   it('should render the filter button', () => {
-    
-render(<ExploreSidebar items={items} onFilter={jest.fn} />)
+    render(<ExploreSidebar items={items} onFilter={jest.fn} />)
 
     expect(screen.getByRole('button', { name: /filter/i })).toBeInTheDocument()
   })
 
   it('should check initial values that are passed', () => {
-    
-render(
+    render(
       <ExploreSidebar
         items={items}
         initialValues={{
@@ -61,8 +57,8 @@ render(
 
   it('should filter with initial values', () => {
     const onFilter = jest.fn()
-    
-render(
+
+    render(
       <ExploreSidebar
         items={items}
         initialValues={{
@@ -83,8 +79,8 @@ render(
 
   it('should filter with checked values', () => {
     const onFilter = jest.fn()
-    
-render(<ExploreSidebar items={items} onFilter={onFilter} />)
+
+    render(<ExploreSidebar items={items} onFilter={onFilter} />)
 
     userEvent.click(screen.getByLabelText(/windows/i))
     userEvent.click(screen.getByLabelText(/linux/i))
@@ -100,8 +96,8 @@ render(<ExploreSidebar items={items} onFilter={onFilter} />)
 
   it('should altern between radio options', () => {
     const onFilter = jest.fn()
-    
-render(<ExploreSidebar items={items} onFilter={onFilter} />)
+
+    render(<ExploreSidebar items={items} onFilter={onFilter} />)
 
     userEvent.click(screen.getByLabelText(/low to high/i))
     userEvent.click(screen.getByLabelText(/high to low/i))
@@ -112,8 +108,7 @@ render(<ExploreSidebar items={items} onFilter={onFilter} />)
   })
 
   it('should open/close sidebar when filtering on mobile ', () => {
-    const { container } = 
-render(
+    const { container } = render(
       <ExploreSidebar items={items} onFilter={jest.fn} />
     )
 

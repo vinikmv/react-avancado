@@ -9,8 +9,7 @@ const props = {
 
 describe('<TextContent />', () => {
   it('should render the title and content', () => {
-    
-render(<TextContent {...props} />)
+    render(<TextContent {...props} />)
 
     expect(
       screen.getByRole('heading', { name: /description/i })
@@ -22,8 +21,7 @@ render(<TextContent {...props} />)
   })
 
   it('should render without title', () => {
-    
-render(<TextContent content={props.content} />)
+    render(<TextContent content={props.content} />)
 
     expect(
       screen.queryByRole('heading', { name: /description/i })
@@ -31,8 +29,7 @@ render(<TextContent content={props.content} />)
   })
 
   it('should render the title and content', () => {
-    
-render(<TextContent {...props} />)
+    render(<TextContent {...props} />)
 
     const wrapper = screen.getByRole('heading', {
       name: /description/i

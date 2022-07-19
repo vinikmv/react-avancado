@@ -4,8 +4,7 @@ import Footer from '.'
 
 describe('<Footer />', () => {
   it('should render 4 column topics', () => {
-    const { container } = 
-render(<Footer />)
+    const { container } = render(<Footer />)
 
     expect(
       screen.getByRole('heading', { name: /contact us/i })

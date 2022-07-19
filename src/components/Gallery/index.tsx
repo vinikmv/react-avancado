@@ -74,7 +74,7 @@ const Gallery = ({ items }: GalleryProps) => {
 
     window.addEventListener('keyup', handleKeyUp)
     return () => window.removeEventListener('keyup', handleKeyUp)
-  }, [])
+  }, [items])
 
   return (
     <S.Wrapper>
